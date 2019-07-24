@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- scan the package and the sub package。通过扫描带有@Controller注解的类交由spring容器管理并维护 -->
+    <context:component-scan base-package="test.controller" />
+    <context:component-scan base-package="nju.software" />
+    <!-- 使拦截器不拦截静态资源请求 -->
+    <mvc:default-servlet-handler />
+
+    <!-- 使其支持注解。自动注册组件 -->
+    <mvc:annotation-driven />
+
+    <!-- 配置InternalResourceViewResolver视图 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/" />
+        <property name="suffix" value=".html" />
+    </bean>
+
+    <!-- 解析静态资源 -->
+    <mvc:resources mapping="/resources/css/**" location="/resources/css/" />
+    <mvc:resources mapping="/resources/images/ht_lawyer_firm/**" location="/resources/images/ht_lawyer_firm/" />
+    <mvc:resources mapping="/resources/images/ht_lawyer_firm/head/**" location="/resources/images/ht_lawyer_firm/head/" />
+    <mvc:resources mapping="/resources/js/**" location="/resources/js/" />
+    <mvc:resources mapping="/resources/css/**" location="/resources/css/" />
+
+    <!-- 引入mybatis -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
+          p:driverClass="com.mysql.jdbc.Driver"
+          p:jdbcUrl="jdbc:mysql://localhost:3308/htlawfirm"
+          p:user="root"
+          p:password=""/>
+
+    <!-- mybatis文件配置，扫描所有mapper文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="/WEB-INF/mybatis-config.xml"/>
+        <property name="mapperLocations" value="/WEB-INF/mappers/*.xml"/>
+    </bean>
+
+    <!-- spring与mybatis整合配置，扫描所有dao,指定的映射器类是接口,接口方法可以用注解来指定 SQL 语句,但是 MyBatis 的映射器 XML 文件也可以用。 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="nju.software"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="utf-8" />
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="10485760000" />
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960" />
+    </bean>
+
+    <!-- 使欢迎页面起作用 -->
+    <mvc:default-servlet-handler/>
+</beans>

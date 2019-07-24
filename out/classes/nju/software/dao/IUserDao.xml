@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nju.software.dao.IUserDao">
+    <!-- 配置查询所有 -->
+    <!-- 这个Id是方法的名称 用resultType对查询后的结果进行封装-->
+    <select id="findAll" resultType="nju.software.model.User">
+        seslect * from user
+    </select>
+    
+</mapper>

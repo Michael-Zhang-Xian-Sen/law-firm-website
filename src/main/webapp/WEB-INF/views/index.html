@@ -1,0 +1,583 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv= "Content-Type" content="multipart/form-data; charset=utf-8" />
+	<meta http-equiv= "pragma" content= "no-cache"/>
+	<meta http-equiv= "Cache-Control" content= "no-cache, must-revalidate"/>
+	<meta http-equiv= "expires" content= "Thu, 01 Jan 1970 00:00:01 GMT"/>
+	<meta http-equiv= "expires" content= "0"/>
+	<title>汉韬 - 用户管理</title>
+	<link href="resources/images/ht_lawyer_firm/logo.ico"  rel="icon" type="image/vnd.microsoft.icon"/>
+	<link href="resources/css/ht_index.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<script src="resources/js/jquery/jquery-1.9.1.js"></script>
+	<script src="resources/js/jquery/jquery.form.js"></script>
+</head>
+<body>
+	<div id="header">
+		<div id="header-logo">
+			<div id="header-logo-container">
+				<img src="resources/images/ht_lawyer_firm/lawyer.png">
+			</div>
+		</div>
+		<div id="header-time">
+			<div id="header-time-container">
+				<span id="header-year">2019</span>-<span id="header-month">06</span>-<span id="header-day">17</span><span id="header-weekday">星期一</span><span id="header-hours">15</span>：<span id="header-minutes">02</span>
+			</div>
+		</div>
+	</div>
+	<div id="banner">
+	</div>
+	<div id="middle">
+		<div id="left-content-container">
+			<div id="left-content">
+				<div id="left-content-wrapper">
+					<div id="left-user-container">
+						<img src="resources/images/ht_lawyer_firm/mountain.png">
+						<div id="left-user-info">
+							<div id="user-img-wrapper">
+								<div>
+									<img id="user-img" src="">
+								</div>
+							</div>
+							<div id="user-name-setting">
+								<div id="user-name">
+									<span id="left-username">某人</span>
+								</div>
+								<div id="user-setting">
+									<img id="left-gear-img" src="resources/images/ht_lawyer_firm/gear.png">
+									<img id="left-power-img" src="resources/images/ht_lawyer_firm/power.png">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="left-options-container">
+						<div class="left-options">
+							<div class="left-options-img">
+								<img src="resources/images/ht_lawyer_firm/todotask.png">
+							</div>
+							<label>我的待办任务</label>
+						</div>
+						<div class="left-options">
+							<div class="left-options-img">
+								<img src="resources/images/ht_lawyer_firm/donetask.png">
+							</div>
+							<label>我的已办任务</label>
+						</div>
+						<div class="left-options">
+							<div class="left-options-img">
+								<img src="resources/images/ht_lawyer_firm/bell.png">
+							</div>
+							<label>提醒消息</label>
+						</div>
+						<div class="left-options">
+							<div class="left-options-img">
+								<img src="resources/images/ht_lawyer_firm/weekinfo.png">
+							</div>
+							<label>我的周报</label>
+						</div>
+						<div class="left-options">
+							<div class="left-options-img">
+								<img src="resources/images/ht_lawyer_firm/mydaily.png">
+							</div>
+							<label>我的日志</label>
+						</div>
+						<div class="left-options">
+							<div class="left-options-img">
+								<img src="resources/images/ht_lawyer_firm/myprogram.png">
+							</div>
+							<label>我的项目</label>
+						</div>
+						<div class="left-options">
+							<div class="left-options-img">
+								<img src="resources/images/ht_lawyer_firm/seizure.png">
+							</div>
+							<label>我的查封资产</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--
+		--><div id="middle-content-container">
+			<div id="middle-content">
+				<div id="middle-content-header-wrapper">
+					<div id="middle-content-header">
+						<div id="middle-content-header-name" >
+							<img src="resources/images/ht_lawyer_firm/user-management.png"><label>用户管理</label>
+						</div>
+						<div id="middle-content-header-name2" class="hide-opacity">
+							<img src="resources/images/ht_lawyer_firm/gear-red.png"><label>个人信息</label>
+						</div>
+						<div id="middle-content-header-search-wrapper">
+							<input id="search-text" type="text" placeholder="请输入用户名称">
+							<div>
+								<img src="resources/images/ht_lawyer_firm/search.png" >
+							</div>
+							<!-- <input id="search-button" src="resources/images/ht_lawyer_firm/search.png" type="submit" value="">-->
+						</div>
+					</div>
+				</div>
+				<div id="middle-content-body2"  class="hidden">
+					<div id="middle-content-wrapper2">
+						<div id="middle-content-container2">
+							<div class="middle-update-row">
+								<div class="middle-update-part1"><span>头像修改：</span></div>
+								<div class="middle-update-part2"><input id="head-img-name-input" class="middle-update-input" type="text"></div>
+								<div class="middle-update-part3">
+									<form method="post" id="upload-user-img" enctype="multipart/form-data">
+										<input id="middle-viewer" type="button" class="btn btn-primary" value="浏览">
+										<input id="middle-viewer-hidden" type="file" name="file" value="浏览">
+										<button id="middle-upload" type="button" class="btn btn-primary">上传</button>
+									</form>
+								</div>
+							</div>
+							<div class="middle-update-row">
+								<div class="middle-update-part1"><span>密码修改：</span></div>
+								<div class="middle-update-part2"><input id="update-password1" class="middle-update-input" type="password"></div>
+							</div>
+							<div class="middle-update-row">
+								<div class="middle-update-part1"><span></span></div>
+								<div class="middle-update-part2"><input id="update-password2" class="middle-update-input" type="password"></div>
+							</div>
+							<div class="middle-update-row">
+								<div class="middle-update-part1"><span>手机号码：</span></div>
+								<div class="middle-update-part2"><input id="update-phone" class="middle-update-input" type="text"></div>
+							</div>
+							<div class="middle-update-row">
+								<div class="middle-update-part1"><span>电子邮箱：</span></div>
+								<div class="middle-update-part2"><input id="update-email" class="middle-update-input" type="text"></div>
+							</div>
+							<div class="middle-update-row">
+								<div class="middle-update-part1"><span></span></div>
+								<div class="middle-update-part4">
+									<button id="middle-update-submit" type="button" class="btn btn-danger">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="middle-content-body">
+					<div id="middle-content-wrapper">
+					  <!-- Nav tabs -->
+					  <div id="myTabs-wrapper">
+						  <ul  id="myTabs"class="nav nav-tabs" role="tablist">
+						    <li role="presentation" class="active">
+						    	<a href="#li-user">用户管理</a>
+						    	<div class="rotate-cube"></div>
+						    </li>
+						    <li role="presentation">
+						    	<a href="#li-team">团队管理</a>
+						    	<div class="rotate-cube"></div>	
+						    </li>
+						    <li role="presentation">
+						    	<a href="#li-role">角色管理</a>
+						    	<div class="rotate-cube"></div>
+						    </li>
+						  </ul>
+						  <input id="add-user" type="button" class="btn btn-primary" value="新增用户" data-toggle="modal" data-target="#myModal1">
+						  <input id="add-team" type="button" class="btn btn-primary hidden" value="新增团队" data-toggle="modal" data-target="#myModal2">
+						  <input id="add-role" type="button" class="btn btn-primary hidden" value="新增角色" data-toggle="modal" data-target="#myModal3">
+						  <!-- 模态框-新增用户 -->
+						  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							  <div class="modal-dialog" role="document">
+								  <div class="modal-content">
+									  <div class="modal-header">
+										  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										  <h4 class="modal-title" id="myModalLabel1">新增用户</h4>
+									  </div>
+									  <div class="modal-body">
+										  <div class="form-group">
+											  <label class="control-label">用户名</label>
+											  <input type="text" class="form-control" id="add-nickname">
+											  <label class="control-label">姓名</label>
+											  <input type="text" class="form-control" id="add-name">
+											  <label class="control-label">性别</label>
+											  <div class="btn-group" data-toggle="buttons" id="add-gender">
+												  <label class="btn btn-primary active">
+													  <input type="radio" name="options" id="add-gender-m" autocomplete="off"> Man ♂
+												  </label>
+												  <label class="btn btn-primary">
+													  <input type="radio" name="options" id="add-gender-wm" autocomplete="off"> Woman ♀
+												  </label>
+											  </div>
+											  <label class="control-label">部门</label>
+											  <input type="text" class="form-control" id="add-apartment">
+											  <label class="control-label">职务</label>
+											  <input type="text" class="form-control" id="add-job">
+											  <label class="control-label">联系方式</label>
+											  <input type="text" class="form-control" id="add-contact">
+											  <label class="control-label">电子信箱</label>
+											  <input type="text" class="form-control" id="add-email">
+										  </div>
+									  </div>
+									  <div class="modal-footer modal-tips1" id="user-modal-footer">
+										  <button type="button" class="btn btn-default" data-dismiss="modal" id="add-user-cancel">关闭</button>
+										  <button type="button" class="btn btn-primary" id="add-user-submit">确定</button>
+									  </div>
+								  </div>
+							  </div>
+						  </div>
+						  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							  <div class="modal-dialog" role="document">
+								  <div class="modal-content">
+									  <div class="modal-header">
+										  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										  <h4 class="modal-title" id="myModalLabel">新增用户</h4>
+									  </div>
+									  <div class="modal-body">
+										  <div class="form-group">
+											  <label class="control-label">用户名</label>
+											  <input type="text" class="form-control" id="add-nickname2">
+											  <label class="control-label">姓名</label>
+											  <input type="text" class="form-control" id="add-name2">
+											  <label class="control-label">性别</label>
+											  <div class="btn-group" data-toggle="buttons" id="add-gender2">
+												  <label class="btn btn-primary active">
+													  <input type="radio" name="options" id="add-gender-m2" autocomplete="off"> Man ♂
+												  </label>
+												  <label class="btn btn-primary">
+													  <input type="radio" name="options" id="add-gender-wm2" autocomplete="off"> Woman ♀
+												  </label>
+											  </div>
+											  <label class="control-label">部门</label>
+											  <input type="text" class="form-control" id="add-apartment2">
+											  <label class="control-label">职务</label>
+											  <input type="text" class="form-control" id="add-job2">
+											  <label class="control-label">联系方式</label>
+											  <input type="text" class="form-control" id="add-contact2">
+											  <label class="control-label">电子信箱</label>
+											  <input type="text" class="form-control" id="add-email2">
+										  </div>
+									  </div>
+									  <div class="modal-footer modal-tips1" id="user-modal-footer2">
+										  <button type="button" class="btn btn-default" data-dismiss="modal" id="add-user-cancel2">关闭</button>
+										  <button type="button" class="btn btn-primary" id="add-user-submit2">确定</button>
+									  </div>
+								  </div>
+							  </div>
+						  </div>
+						  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							  <div class="modal-dialog" role="document">
+								  <div class="modal-content">
+									  <div class="modal-header">
+										  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										  <h4 class="modal-title" id="myModalLabel2">新增用户</h4>
+									  </div>
+									  <div class="modal-body">
+										  <div class="form-group">
+											  <label class="control-label">用户名</label>
+											  <input type="text" class="form-control" id="add-nickname3">
+											  <label class="control-label">姓名</label>
+											  <input type="text" class="form-control" id="add-name3">
+											  <label class="control-label">性别</label>
+											  <div class="btn-group" data-toggle="buttons" id="add-gender3">
+												  <label class="btn btn-primary active">
+													  <input type="radio" name="options" id="add-gender-m3" autocomplete="off"> Man ♂
+												  </label>
+												  <label class="btn btn-primary">
+													  <input type="radio" name="options" id="add-gender-wm3" autocomplete="off"> Woman ♀
+												  </label>
+											  </div>
+											  <label class="control-label">部门</label>
+											  <input type="text" class="form-control" id="add-apartment3">
+											  <label class="control-label">职务</label>
+											  <input type="text" class="form-control" id="add-job3">
+											  <label class="control-label">联系方式</label>
+											  <input type="text" class="form-control" id="add-contact3">
+											  <label class="control-label">电子信箱</label>
+											  <input type="text" class="form-control" id="add-email3">
+										  </div>
+									  </div>
+									  <div class="modal-footer modal-tips1" id="user-modal-footer3">
+										  <button type="button" class="btn btn-default" data-dismiss="modal" id="add-user-cancel3">关闭</button>
+										  <button type="button" class="btn btn-primary" id="add-user-submit3">确定</button>
+									  </div>
+								  </div>
+							  </div>
+						  </div>
+					  </div>
+					  <!-- Tab panes -->
+					  <div class="tab-content">
+					    <div role="tabpanel" id="li-user" class="tab-pane active" id="home">
+					    	<div class="tab-row">
+					    		<div class="tab-c1 tab-block">
+									<input type="checkbox"  class="css-checkbox"/>
+									<label class="css-label tabs-check-box"></label>
+					    		</div>
+					    		<div class="tab-c2 tab-block">
+					    			<span>序号</span>
+					    		</div>
+					    		<div class="tab-c3 tab-block">
+					    			<span>用户名</span>
+					    		</div>
+					    		<div class="tab-c4 tab-block">
+					    			<span>姓名</span>
+					    		</div>
+					    		<div class="tab-c5 tab-block">
+					    			<span>性别</span>
+					    		</div>
+					    		<div class="tab-c6 tab-block">
+					    			<span>部门</span>
+					    		</div>
+					    		<div class="tab-c7 tab-block">
+					    			<span>职务</span>
+					    		</div>
+					    		<div class="tab-c8 tab-block">
+					    			<span>联系方式</span>
+					    		</div>
+					    		<div class="tab-c9 tab-block">
+					    			<span>电子信箱</span>
+					    		</div>
+					    		<div class="tab-c10 tab-block">
+					    			<span>操作</span>
+					    		</div>
+					    	</div>
+					    </div>
+					    <div role="tabpanel" id="li-team" class="tab-pane" id="profile">
+							<div class="tab-row">
+								<div class="tab-t1 tab-block">
+									<input type="checkbox" name="checkboxG5" id="checkboxG6" class="css-checkbox">
+									<label for="checkboxG5" class="css-label tabs-check-box"></label>
+								</div>
+								<div class="tab-t2 tab-block">
+									<span>序号</span>
+								</div>
+								<div class="tab-t3 tab-block">
+									<span>团队负责人</span>
+								</div>
+								<div class="tab-t4 tab-block">
+									<span>团队名称</span>
+								</div>
+								<div class="tab-t5 tab-block">
+									<span>联系方式</span>
+								</div>
+								<div class="tab-t6 tab-block">
+									<span>电子信箱</span>
+								</div>
+								<div class="tab-t7 tab-block">
+									<span>操作</span>
+								</div>
+							</div>
+							<div class="tab-row">
+								<div class="tab-t1 tab-block">
+									<input type="checkbox" name="checkboxG5" id="checkboxG7" class="css-checkbox">
+									<label for="checkboxG5" class="css-label tabs-check-box"></label>
+								</div>
+								<div class="tab-t2 tab-block2">
+									<span>1</span>
+								</div>
+								<div class="tab-t3 tab-block2">
+									<span>张浩</span>
+								</div>
+								<div class="tab-t4 tab-block2">
+									<span>NJU.Team</span>
+								</div>
+								<div class="tab-t5 tab-block2">
+									<span>15691788231</span>
+								</div>
+								<div class="tab-t6 tab-block2">
+									<span>1920395012@qq.com</span>
+								</div>
+								<div class="tab-t7 tab-block2">
+									<img class="update-team-info" src="resources/images/ht_lawyer_firm/pen.png">
+									<img class="delete-team-info" src="resources/images/ht_lawyer_firm/bin.png">
+								</div>
+							</div>
+					    </div>
+					    <div role="tabpanel" id="li-role" class="tab-pane" id="messages">
+							<div class="tab-row">
+								<div class="tab-r1 tab-block">
+									<input type="checkbox" name="checkboxG5" id="checkboxG5" class="css-checkbox">
+									<label for="checkboxG5" class="css-label tabs-check-box"></label>
+								</div>
+								<div class="tab-r2 tab-block">
+									<span>序号</span>
+								</div>
+								<div class="tab-r3 tab-block">
+									<span>用户名</span>
+								</div>
+								<div class="tab-r4 tab-block">
+									<span>姓名</span>
+								</div>
+								<div class="tab-r5 tab-block">
+									<span>角色</span>
+								</div>
+								<div class="tab-r6 tab-block">
+									<span>模块</span>
+								</div>
+								<div class="tab-r7 tab-block">
+									<span>操作</span>
+								</div>
+							</div>
+							<div class="tab-row">
+								<div class="tab-r1 tab-block">
+									<input type="checkbox" name="checkboxG5" id="checkboxG8" class="css-checkbox">
+									<label for="checkboxG5" class="css-label tabs-check-box"></label>
+								</div>
+								<div class="tab-r2 tab-block2">
+									<span>1</span>
+								</div>
+								<div class="tab-r3 tab-block2">
+									<span>Himory</span>
+								</div>
+								<div class="tab-r4 tab-block2">
+									<span>张浩</span>
+								</div>
+								<div class="tab-r5 tab-block2">
+									<span>管理员</span>
+								</div>
+								<div class="tab-r6 tab-block2">
+									<span>智慧文书</span>
+								</div>
+								<div class="tab-r7 tab-block2">
+									<img class="update-role-info" src="resources/images/ht_lawyer_firm/pen.png">
+									<img class="delete-role-info" src="resources/images/ht_lawyer_firm/bin.png">
+								</div>
+							</div>
+					    </div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div><!-- 
+		--><div id="right-content-container">
+			<div id="right-content">
+				<div id="right-content-part1">
+					<div id="right-content-part1-head">
+						<div id="right-content-part1-head1">
+							<div id="right-content-part1-head-annotation">
+								<img src="resources/images/ht_lawyer_firm/application.png">
+								<span>我的应用</span>
+							</div>
+						</div>
+						<div id="right-content-part1-head2">
+							<img src="resources/images/ht_lawyer_firm/plus.png">
+						</div>
+					</div>
+					<div id="right-content-part1-body">
+						<div class="right-row">
+							<div id="b11" class="right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/right-client-management.png">
+									<span>客户管理</span>
+								</div>
+							</div>
+							<div id="b12" class="right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/book.png">
+									<span>项目管理</span>
+								</div>
+							</div>
+							<div id="b13" class="right-block now-right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/right-user.png">
+									<span>用户管理</span>
+								</div>
+							</div>
+							<div id="b14" class="right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/team-daily.png">
+									<span>团队周报</span>
+								</div>
+							</div>																				
+						</div>
+						<div class="right-row">
+							<div id="b21" class="right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/corp-week.png">
+									<span>公司周报</span>
+								</div>
+							</div>
+							<div id="b22" class="right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/right-user-management.png">
+									<span>团队项目</span>
+								</div>
+							</div>
+							<div id="b23" class="right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/corp-program.png">
+									<span>公司项目</span>
+								</div>
+							</div>
+							<div id="b24" class="right-block">
+								<div class="img-span img-span-special">
+									<img src="resources/images/ht_lawyer_firm/ban-property.png">
+									<span>团队查封资产项目</span>
+								</div>
+							</div>
+						</div>
+						<div class="right-row">
+							<div id="b31" class="right-block">
+								<div class="img-span img-span-special">
+									<img src="resources/images/ht_lawyer_firm/corp-ban-property.png">
+									<span>公司查封资产项目</span>
+								</div>
+							</div>
+							<div id="b32" class="right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/statistic.png">
+									<span>统计</span>
+								</div>
+							</div>
+							<div id="b33" class="right-block">
+								<div class="img-span">
+									<img src="resources/images/ht_lawyer_firm/right-contact.png">
+									<span>通讯录</span>
+								</div>
+							</div>
+							<div id="b34" class="right-block">
+								<div class="img-span">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="right-content-empty"></div>
+				<div id="right-content-part2">
+					<div id="right-content-part2-head">
+						<div id="right-content-part2-head1">
+							<div id="right-content-part2-head-annotation">
+								<img src="resources/images/ht_lawyer_firm/voice.png">
+								<span>公告</span>
+							</div>
+						</div>
+						<div id="right-content-part2-head2">
+							<img src="resources/images/ht_lawyer_firm/arrowhead.png">
+						</div>
+					</div>
+					<div id="right-content-part2-body">
+						<div id="right-content-part2-wrapper">
+							<ul>
+								<li>
+									<div class="news-tag">
+										<span class="news-title">针对办公文案规范范文的公告</span>
+									</div>
+									<div class="news-time">
+										<span class="news-year">2019</span>-
+										<span class="news-month">6</span>-
+										<span class="news-day">16</span>
+									</div>
+								</li>
+								<li>
+									<div class="news-tag">
+										<span class="news-title">针对标书填写范文公告</span>
+									</div>
+									<div class="news-time">
+										<span class="news-year">2019</span>-
+										<span class="news-month">6</span>-
+										<span class="news-day">16</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nju.software.dao.IUserDao">
+    <!-- 配置查询所有 -->
+    <!-- 这个Id是方法的名称 用resultType对查询后的结果进行封装-->
+    <select id="findAll" resultType="nju.software.model.User">
+        select * from user
+    </select>
+
+    <select id="findByNickname" parameterType="java.lang.String" resultType="nju.software.model.User">
+        SELECT * FROM user WHERE nickname = #{nickname}
+    </select>
+
+    <insert id="addUser" parameterType="nju.software.model.User">
+        INSERT INTO user (nickname,name,password,gender,apartment,job,contact,email,head_img) values (#{nickname},#{name},"123456",#{gender},#{apartment},#{job},#{contact},#{email},"123456")
+    </insert>
+
+    <update id="updateUser" parameterType="nju.software.model.User">
+        update user
+        <set>
+            <if test="gender!=null ">gender=#{gender},</if>
+            <if test="job!=null ">job=#{job},</if>
+            <if test="contact!=null ">contact=#{contact},</if>
+            <if test="email!=null ">email=#{email}</if>
+        </set>
+        where nickname = #{nickname}
+    </update>
+
+    <delete id="deleteByNickname" parameterType="java.lang.String">
+        DELETE from user where nickname = #{nickname}
+    </delete>
+
+    <update id="updateUserImg">
+        update user
+        <set>
+            <if test="head_img!=null ">head_img=#{head_img},</if>
+        </set>
+        where nickname = #{nickname}
+    </update>
+
+    <update id="updateUserPrivateInfo" parameterType="nju.software.model.User">
+        update user
+        <set>
+            <if test="password!=null">password=#{password},</if>
+            <if test="contact!=null">contact=#{contact},</if>
+            <if test="email!=null">email=#{email},</if>
+        </set>
+        where nickname = #{nickname}
+    </update>
+
+</mapper>
