@@ -12,6 +12,26 @@ public class User implements Serializable {
     private String contact;
     private String email;
     private String head_img;
+    private int root;
+    private String module;
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+
+    public int getRoot() {
+        return root;
+    }
+
+    public void setRoot(int root) {
+        this.root = root;
+    }
+
 
     public User(String nickname,String name,String password,char gender,String apartment,String job,String contact,String email,String head_img){
         this.nickname = nickname;
@@ -123,6 +143,8 @@ public class User implements Serializable {
                 ", contact='" + contact + '\'' +
                 ", email='" + email + '\'' +
                 ", head_img='" + head_img + '\'' +
+                ", root=" + root +
+                ", module='" + module + '\'' +
                 '}';
     }
 }

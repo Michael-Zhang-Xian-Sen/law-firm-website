@@ -37,15 +37,31 @@ public class UserController {
      */
     @RequestMapping(value = "addUser",method = RequestMethod.POST)
     public void addUserInfo(User user, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(user.getName());
-        System.out.println(user.getNickname());
-        iUserDao.addUser(user);
-        System.out.println("添加用户成功！下面开始查询用户！");
-        System.out.println("查询用户中...");
+        // 此处进行检验。如果不是管理员，不能添加。返回false。
+        HttpSession session = request.getSession(false);
+        String userNickname = (String)session.getAttribute("nickname");
 
-        List<User> userList = iUserDao.findAll();
-        JSONArray jsonArray = JSONArray.fromObject(userList);
-        JsonUtils.ajaxJson(jsonArray.toString(),response);
+        User nowUser = iUserDao.findByNickname(userNickname);
+        System.out.println(nowUser.getRoot());
+        if(nowUser.getRoot() == 0){
+            Status status = new Status();
+            status.setStatus("failed");
+            JSONObject jsonObject = JSONObject.fromObject(status);
+            JsonUtils.ajaxJson(jsonObject.toString(),response);
+        }else{
+            System.out.println(user.getName());
+            System.out.println(user.getNickname());
+            user.setHead_img("\\ht_lawyer_pic\\head\\1.jpg");
+            user.setPassword("123456");
+            user.setRoot(0);
+            user.setModule("");
+            iUserDao.addUser(user);
+            System.out.println("添加用户成功！下面开始查询用户！");
+
+            List<User> userList = iUserDao.findAll();
+            JSONArray jsonArray = JSONArray.fromObject(userList);
+            JsonUtils.ajaxJson(jsonArray.toString(),response);
+        }
     }
 
     /**

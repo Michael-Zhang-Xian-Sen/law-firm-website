@@ -294,15 +294,19 @@ function addUser(){
 		data:JSON.parse(JSON.stringify(addUserInfo())),
 		dataType:"json",
 		success:function(message){
-			console.log("添加成功！");
-			// 若成功，返回全表的查询结果
-			console.log(message);
-			// 提示添加成功!
-			addTips();
-			// 先删除结果
-			removeUserManagement();
-			// 再渲染结果
-			renderUserManagement(message);
+			if(message.status != "failed"){
+				console.log("添加成功！");
+				// 若成功，返回全表的查询结果
+				console.log(message);
+				// 提示添加成功!
+				addTips();
+				// 先删除结果
+				removeUserManagement();
+				// 再渲染结果
+				renderUserManagement(message);
+			}else{
+				alert("添加失败！");
+			}
 		},
 		error:function(message){
 			console.log("添加失败！");

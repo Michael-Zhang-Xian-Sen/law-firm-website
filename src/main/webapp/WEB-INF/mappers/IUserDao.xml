@@ -14,7 +14,7 @@
     </select>
 
     <insert id="addUser" parameterType="nju.software.model.User">
-        INSERT INTO user (nickname,name,password,gender,apartment,job,contact,email,head_img) values (#{nickname},#{name},"123456",#{gender},#{apartment},#{job},#{contact},#{email},"123456")
+        INSERT INTO user (nickname,name,password,gender,apartment,job,contact,email,head_img,root,module) values (#{nickname},#{name},#{password},#{gender},#{apartment},#{job},#{contact},#{email},#{head_img},#{root},#{module})
     </insert>
 
     <update id="updateUser" parameterType="nju.software.model.User">
