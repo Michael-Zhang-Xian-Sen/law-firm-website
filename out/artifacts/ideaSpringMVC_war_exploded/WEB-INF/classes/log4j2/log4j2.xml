@@ -1,23 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- status=debug 可以查看log4j的装配过程 -->
-<configuration status="trace">
-    <!-- 文件路径 -->
+<!-- status 属性，表示log4j2本身的日志信息打印级别 其中 日志级别从低到高为：TRACE < DEBUG < INFO < WARN < ERROR < FATAL -->
+<!-- monitorInterval 设置每隔value秒后重新读取配置文件 该属性使得可以在不重启应用的情况下修改配置 -->
+<Configuration status="DEBUG" monitorInterval="300">
+
+    <!-- 通过property元素定义常量 -->
     <properties>
-        <!--设置日志在硬盘上输出的目录${log4j:configParentLocation}使用此查找将日志文件放在相对于log4j配置文件的目录中-->
-        <property name="Log_Home">F:\log</property>
+        <property name="LOG_HOME">F:/log</property>
+        <property name="FILE_NAME">mylog</property>
     </properties>
 
-    <!--先定义所有的appender-->
-    <appenders>
-        <!--输出控制台的配置-->
-        <Console name="Console" target="SYSTEM_OUT">
-            <!--输出日志的格式
-            %L:：输出代码中的行号。
-            %M：输出产生日志信息的方法名。-->
-            <!--"%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=Bright Red, ERROR=Bright Magenta, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White}"-->
 
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36}.%M @%L :-> %msg%xEx%n"/>
+    <!-- Appender 日志的输出目的地 -->
+    <Appenders>
+        <!-- 配置了一个类型为Console的Appender，即输出到控制台 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- PatternLayout定义了输出日志时的格式 -->
+            <!-- %d{HH:mm:ss.SSS} 表示输出到毫秒的时间 -->
+            <!-- %t输出当前线程的名称 -->
+            <!-- %-5level 输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0 -->
+            <!-- %logger 输出logger的名称 -->
+            <!-- %msg 日志文本 -->
+            <!-- %n 换行 -->
+            <!-- %F 输出所在的类的文件名 -->
+            <!-- %L输出行号 -->
+            <!-- %M输出所在方法名 -->
+            <!-- %l 输出语句所在的类名、方法名(%M)、文件名(%F)、行数(%L) -->
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%l]  %-5level %logger{36} - %msg%n" />
         </Console>
+
+         配置一个文件类型的API，可以将日志输出到指定的文件中
+        <File name="MyFile" fileName="F:/log/app.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%l] %-5level %logger{36} - %msg%n"></PatternLayout>
+        </File>
+
+        <!-- 配置一个当满足一定条件后，就重命名原日志文件用于备份，并从新生成一个新的日志文件的Appender -->
+        <!-- fileName指定当前日志文件的位置和文件名称  -->
+        <!-- filePattern 当发生Rolling时 文件的转移和重命名规则 -->
+        <RollingRandomAccessFile name="MyFileRolling" fileName="${LOG_HOME}/${FILE_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%l] %-5level %logger{36} - %msg%n"></PatternLayout>
+            <Policies>
+                <!-- 需要结合RollingRandomAccessFile比起爱你的filePattern属性进行使用，此处代表每1分钟生成一个新文件(此处每分钟生成一个文件好像没有生效？) -->
+                <TimeBasedTriggeringPolicy interval="1" />
+                <!-- 指定当文件体积大于size指定的值时，触发Rolling -->
+                <SizeBasedTriggeringPolicy size="10 MB"></SizeBasedTriggeringPolicy>
+            </Policies>
+            <!-- 指定最多保存的文件个数 -->
+            <DefaultRolloverStrategy max="20"></DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
 
         <!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
         <RollingFile name="RollingFileInfo" fileName="${Log_Home}/info.${date:yyyy-MM-dd}.log" immediateFlush="true"
@@ -58,41 +87,38 @@
                 <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
         </RollingFile>
+    </Appenders>
 
-        <Http name="Http" url="http://localhost:8080/ideaSpringMVC_war_exploded/">
-            <JsonLayout properties="true"/>
-        </Http>
 
-    </appenders>
-    <!--trace<debug<info<warn<error<fatal-->
-    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
-    <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
-    <!--log4j的additivity属性： additivity它是 子Logger 是否继承 父Logger 的 输出源（appender） 的标志位。
-    具体说，默认情况下子Logger会继承父Logger的appender，也就是说子Logger会在父Logger的appender里输出。
-    若是additivity设为false，则子Logger只会在自己的appender里输出，而不会在父Logger的appender里输出。！-->
-    <!--<logger name="org" level="INFO" additivity="false" ></logger>-->
-    <!--<logger name="org.springframework" level="INFO" additivity="false"></logger>-->
-    <!--<logger name="org.mybatis" level="INFO" additivity="false"></logger>-->
-    <loggers>
-        <logger name="org.springframework.core" level="info">
-        </logger>
-        <logger name="org.springframework.beans" level="info">
-        </logger>
-        <logger name="org.springframework.context" level="info">
-        </logger>
-        <logger name="org.springframework.web" level="info">
-        </logger>
-        <Logger name="nju.software" level="info">
+    <Loggers>
+        <!-- name 代表logger的名字 -->
+        <!-- level 是输出日志的最低等级，其默认值为error -->
+        <!-- additivity 叠加性 设置为false 表示该logger输出的日志不会延伸到父层root -->
+
+        <Logger name="mylog" level="trace" additivity="false">
+            <!-- 在此处指定使用哪一个Appender,ref为Appender的name -->
+            <AppenderRef ref="MyFileRolling"></AppenderRef>
         </Logger>
+        <!-- 每一个配置文件都必须要有一个root logger,没有的话会配置如下所示的默认root logger-->
+        <!-- 注意1：root logger没有名称 -->
+        <!-- 注意2：root logger不支持additivity属性，因为root logger没有父元素 -->
+        <!--<Root level="error">-->
+        <!--    <AppenderRef ref="Console" />-->
+        <!--</Root>-->
 
-        <!--建立一个默认的root的logger-->
-        <root level="info">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFileInfo"/>
-            <appender-ref ref="RollingFileDebug"/>
-            <appender-ref ref="RollingFileError"/>
-        </root>
+        <!-- 上述logger仅用于log4j2学习 -->
+        <!-- 下方logger为web mvc配置 -->
+        <Logger name="org.springframework.core" level="info"></Logger>
+        <Logger name="org.springframework.beans" level="info"></Logger>
+        <Logger name="org.springframework.context" level="info"></Logger>
+        <Logger name="org.springframework.web" level="info"></Logger>
 
+        <Root level="info">
+            <appender-ref ref="Console"></appender-ref>
+            <appender-ref ref="RollingFileInfo"></appender-ref>
+            <appender-ref ref="RollingFileDebug"></appender-ref>
+            <appender-ref ref="RollingFileError"></appender-ref>
+        </Root>
 
-    </loggers>
-</configuration>
+    </Loggers>
+</Configuration>

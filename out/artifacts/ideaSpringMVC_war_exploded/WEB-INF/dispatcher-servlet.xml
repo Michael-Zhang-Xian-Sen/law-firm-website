@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
@@ -11,10 +12,12 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 上述文件定义了配置Spring的XML元素 -->
 
-    <!-- scan the package and the sub package。通过扫描带有@Controller注解的类交由spring容器管理并维护 -->
+    <!-- 开启组件扫描 -->
     <context:component-scan base-package="test.controller" />
     <context:component-scan base-package="nju.software" />
+
     <!-- 使拦截器不拦截静态资源请求 -->
     <mvc:default-servlet-handler />
 
@@ -22,6 +25,7 @@
     <mvc:annotation-driven />
 
     <!-- 配置InternalResourceViewResolver视图 -->
+    <!-- 此处id为bean的名字 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/" />
         <property name="suffix" value=".html" />

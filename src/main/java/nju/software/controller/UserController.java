@@ -6,6 +6,8 @@ import nju.software.dao.IUserDao;
 import nju.software.model.Status;
 import nju.software.model.User;
 import nju.software.util.JsonUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,10 @@ import java.util.List;
 
 @Controller
 public class UserController {
+    private final Logger logger = LogManager.getLogger();
     // 可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。
+    // 此处设置required=false，可避免在应用上下文创建时异常的出现。
+    // 同时，设置required=false后，如果没有匹配的bean Spring将会让这个bean出于未装配的状态。
     @Autowired(required = false)
     private IUserDao iUserDao;
 
@@ -37,7 +42,8 @@ public class UserController {
      */
     @RequestMapping(value = "addUser",method = RequestMethod.POST)
     public void addUserInfo(User user, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 此处进行检验。如果不是管理员，不能添加。返回false。
+        logger.info("尝试添加用户信息！");
+
         HttpSession session = request.getSession(false);
         String userNickname = (String)session.getAttribute("nickname");
 
@@ -56,11 +62,11 @@ public class UserController {
             user.setRoot(0);
             user.setModule("");
             iUserDao.addUser(user);
-            System.out.println("添加用户成功！下面开始查询用户！");
 
             List<User> userList = iUserDao.findAll();
             JSONArray jsonArray = JSONArray.fromObject(userList);
             JsonUtils.ajaxJson(jsonArray.toString(),response);
+            logger.info("添加用户信息 成功！");
         }
     }
 
@@ -74,13 +80,13 @@ public class UserController {
      */
     @RequestMapping(value = "updateUser",method = RequestMethod.POST)
     public void updateUserInfo(User user, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        logger.info("尝试更新用户信息！");
         System.out.println(user.getNickname());
         iUserDao.updateUser(user);
-        System.out.println("更新完成！");
         User updatedUser = iUserDao.findByNickname(user.getNickname());
-        System.out.println("pdatedUser为："+updatedUser);
         JSONObject jsonObject = JSONObject.fromObject(updatedUser);
         JsonUtils.ajaxJson(jsonObject.toString(),response);
+        logger.info("更新用户信息 成功！");
     }
 
     /**
@@ -90,14 +96,13 @@ public class UserController {
      */
     @RequestMapping(value = "deleteUser",method = RequestMethod.POST)
     public void deleteUserInfo(User user,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("准备删除nickname");
-        System.out.println("nickname为："+user.getNickname());
+        logger.info("准备删除用户信息！");
         int flag = iUserDao.deleteByNickname(user.getNickname());
-        System.out.println("成功删除，flag为："+flag);
         Status status = new Status();
         status.setStatus("success");
         JSONObject jsonObject = JSONObject.fromObject(status);
         JsonUtils.ajaxJson(jsonObject.toString(),response);
+        logger.info("删除用户信息 成功！");
     }
 
 
@@ -106,13 +111,11 @@ public class UserController {
      */
     @RequestMapping(value = "uploadImg",method = RequestMethod.POST)
     public void springUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException, ServletException {
-        System.out.println("准备存储图片！");
+        logger.info("准备更新用户头像！");
 //      String path="C:\\Users\\Himory\\Desktop\\ideaSpringMVC\\src\\main\\webapp\\resources\\images\\ht_lawyer_firm\\head\\"+file.getOriginalFilename();
         String path="F:\\ht_lawyer_pic\\head\\"+file.getOriginalFilename();
         String fileName = file.getOriginalFilename();
         if(fileName != null){
-            System.out.println("存放图片！");
-            System.out.println("fileName为："+fileName);
             file.transferTo(new File(path));
 
             // 在数据库中更新
@@ -125,18 +128,19 @@ public class UserController {
             // 将对象返回给前端
             JSONObject jsonObject = JSONObject.fromObject(updateUser);
             JsonUtils.ajaxJson(jsonObject.toString(),response);
+            logger.info("更新用户头像 成功！");
         }else{
-            System.out.println("文件不存在！");
             Status status = new Status();
             status.setStatus("failed");
             JSONObject jsonObject = JSONObject.fromObject(status);
             JsonUtils.ajaxJson(jsonObject.toString(),response);
+            logger.warn("更新用户头像 失败！");
         }
     }
 
     @RequestMapping(value = "updateUserPrivateInfo",method = RequestMethod.POST)
     public void updateUserPrivateInfo(User u,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("开始更新用户信息");
+        logger.info("准备更新用户信息");
         Status status = new Status();
         HttpSession httpSession = request.getSession();
         u.setNickname((String)httpSession.getAttribute("nickname"));
@@ -145,10 +149,12 @@ public class UserController {
             status.setStatus("success");
             JSONObject jsonObject = JSONObject.fromObject(status);
             JsonUtils.ajaxJson(jsonObject.toString(),response);
+            logger.info("更新用户信息 成功！");
         }else{
             status.setStatus("failed");
             JSONObject jsonObject = JSONObject.fromObject(status);
             JsonUtils.ajaxJson(jsonObject.toString(),response);
+            logger.warn("更新用户信息 失败！");
         }
     }
 }
